@@ -22,23 +22,14 @@ function proml() {
     local PURPLE="\[\033[0;35m\]"
     local COLOR_END="\[\033[0m\]"
     if [ $USER = "root" ]; then
-        #local PREFIX="♚"
         local PREFIX="♔"
     else
-        #local PREFIX="⚑"
-        #local PREFIX="♖"
-        #local PREFIX="♛"
-        #local PREFIX="☞"
         local PREFIX=""
-        #local PREFIX="♬"
     fi
-    #PS1="$COLOR_END[\u@$PURPLE\h$COLOR_END:$BLUE\W$COLOR_END$GREEN\$(parse_git_branch)$COLOR_END]$PURPLE\$$COLOR_END "
     PS1="$COLOR_END$PURPLE\W$COLOR_END$GREEN\$(parse_git_branch)$COLOR_END$PURPLE$PREFIX$COLOR_END "
-    #export PS1="$COLOR_END$PURPLE[\W]$COLOR_END $GREEN\$(parse_git_branch)$COLOR_END$PURPLE$PREFIX$COLOR_END "
 }
 proml
 
-#export PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}\007"'
 case $TERM in
 xterm*)
     PROMPT_COMMAND='echo -ne "\033]0;${PWD/#$HOME/~}"; echo -ne "\007"'

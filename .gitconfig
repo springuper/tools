@@ -7,3 +7,5 @@
 [user]
 	email = shangchun@meituan.com
 	name = shangchun
+[push]
+	default = simple
