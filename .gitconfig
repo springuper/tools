@@ -1,0 +1,9 @@
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	ci = commit
+	di = diff
+[user]
+	email = shangchun@meituan.com
+	name = shangchun
