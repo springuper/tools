@@ -228,7 +228,7 @@ set magic
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
+" set whichwrap+=<,>,h,l
 
 "==========================================
 "hot key  自定义快捷键
@@ -381,11 +381,31 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
-" syntax enable
-" set background=dark
-" let g:solarized_contrast='low'
-" colorscheme solarized
-
 syntax on
 set background=dark
-color mango
+let g:solarized_contrast='low'
+colorscheme solarized
+
+let javascript_enable_domhtmlcss=1
+
+" syntax on
+" set background=dark
+" colorscheme molokai
+
+"Use TAB to complete when typing words, else inserts TABs as usual.
+"Uses dictionary and source files to find matching words to complete.
+
+"See help completion for source,
+"Note: usual completion is on <C-n> but more trouble to press all the time.
+"Never type the same word twice and maybe learn a new spellings!
+"Use the Linux dictionary when spelling is in doubt.
+"Window users can copy the file to their machine.
+function! Tab_Or_Complete()
+    if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
+        return "\<C-N>"
+    else
+        return "\<Tab>"
+    endif
+endfunction
+:inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
+:set dictionary="/usr/dict/words"
