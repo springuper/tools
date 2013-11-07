@@ -305,8 +305,6 @@ inoremap kj <Esc>
 " I can type :help on my own, thanks.
 noremap <F1> <Esc>"
 
-nnoremap ; :
-
 nnoremap <leader>v V`}
 
 "Use sane regexes"
@@ -376,21 +374,24 @@ map <leader>tm :tabmove
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
+autocmd FileType javascript set makeprg=jshint\ %
+autocmd FileType javascript set errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ %m
+
 
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
-syntax on
-set background=dark
-let g:solarized_contrast='low'
-colorscheme solarized
+" syntax on
+" set background=dark
+" let g:solarized_contrast='low'
+" colorscheme solarized
 
 let javascript_enable_domhtmlcss=1
 
-" syntax on
-" set background=dark
-" colorscheme molokai
+syntax on
+set background=dark
+colorscheme molokai
 
 "Use TAB to complete when typing words, else inserts TABs as usual.
 "Uses dictionary and source files to find matching words to complete.
@@ -409,3 +410,6 @@ function! Tab_Or_Complete()
 endfunction
 :inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 :set dictionary="/usr/dict/words"
+
+" node dict
+au FileType javascript set dictionary+=$HOME/.vim/dict/node.dict

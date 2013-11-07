@@ -9,3 +9,6 @@
 	name = shangchun
 [push]
 	default = simple
+[color]
+	all = auto
+	diff = auto
