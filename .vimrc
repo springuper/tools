@@ -27,8 +27,8 @@ set shortmess=atI       " 启动的时候不显示那个援助索马里儿童的
 "set backupdir=~/bak/vimbk/
 
 " 取消备份。 视情况自己改
-set nobackup
-set noswapfile
+" set nobackup
+" set noswapfile
 
 " 突出显示当前行等 不喜欢这种定位可注解
 " set cursorcolumn
@@ -179,7 +179,6 @@ set formatoptions+=B
 "==========================================
 " others 其它配置
 "==========================================
-autocmd! bufwritepost _vimrc source % " vimrc文件修改之后自动加载。 windows。
 autocmd! bufwritepost .vimrc source % " vimrc文件修改之后自动加载。 linux。
 
 " 自动补全配置
@@ -382,16 +381,16 @@ execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
-" syntax on
-" set background=dark
+syntax on
+set background=dark
 " let g:solarized_contrast='low'
-" colorscheme solarized
+colorscheme solarized
 
 let javascript_enable_domhtmlcss=1
 
-syntax on
-set background=dark
-colorscheme molokai
+" syntax on
+" set background=dark
+" colorscheme mango
 
 "Use TAB to complete when typing words, else inserts TABs as usual.
 "Uses dictionary and source files to find matching words to complete.

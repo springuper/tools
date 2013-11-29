@@ -9,6 +9,7 @@ fi
 
 PATH=/opt/fe/bin:$HOME/bin:$PATH:/usr/local/mysql/bin
 export PATH
+export CLICOLOR=1
 
 umask 0002
 
