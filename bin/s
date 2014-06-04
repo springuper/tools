@@ -1,0 +1,1 @@
+screen -T xterm -r -d -S spring || screen -T xterm -S spring
