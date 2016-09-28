@@ -1,3 +1,53 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" Style
+Plugin 'zoubin/vim-tabstop'
+Plugin 'godlygeek/tabular'
+
+" Language
+Plugin 'moll/vim-node'
+Plugin 'pangloss/vim-javascript'
+Plugin 'fatih/vim-go'
+
+" Autocomplete
+" Plugin 'valloric/youcompleteme'
+Plugin 'taglist.vim'
+
+" Syntax
+Plugin 'scrooloose/syntastic'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+
+" Enables syntax highlighting for JSDocs
+let g:javascript_plugin_jsdoc = 1
+" Enables syntax highlighting for Flow
+let g:javascript_plugin_flow = 1
+
+" Syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_javascript_checkers = ['eslint']
+
+" Taglist
+let Tlist_Ctags_Cmd='/User/local/bin/ctags'
+
+
 "==========================================
 " General 基础设置
 "==========================================
@@ -27,8 +77,8 @@ set shortmess=atI       " 启动的时候不显示那个援助索马里儿童的
 "set backupdir=~/bak/vimbk/
 
 " 取消备份。 视情况自己改
-" set nobackup
-" set noswapfile
+set nobackup
+set noswapfile
 
 " 突出显示当前行等 不喜欢这种定位可注解
 " set cursorcolumn
@@ -372,14 +422,6 @@ map <leader>tm :tabmove
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-
-autocmd FileType javascript set makeprg=jshint\ %
-autocmd FileType javascript set errorformat=%f:\ line\ %l\\,\ col\ %c\\,\ %m
-
-
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
 
 syntax on
 set background=dark
