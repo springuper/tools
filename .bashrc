@@ -10,6 +10,10 @@ source ~/.git-completion.bash
 # alias
 alias ll="ls -l"
 alias dev="ssh dev"
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+alias setup="virtualenv --no-site-packages env && source env/bin/activate"
+alias godev="ssh -v chun-dev"
+alias ctags="/usr/local/Cellar/universal-ctags/HEAD-3fdf28b/bin/ctags"
 
 # @link http://www.jonmaddox.com/2008/03/13/show-your-git-branch-name-in-your-prompt/
 function parse_git_branch {
@@ -44,7 +48,7 @@ esac
 
 #LANG=en_US.UTF-8
 export LC_ALL="en_US.UTF-8"
-#export TERM=xterm-256color
+# export TERM=xterm-256color
 
 # User specific aliases and functions
 #export GREP_COLORS='ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36'
@@ -55,3 +59,18 @@ export LC_ALL="en_US.UTF-8"
 
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+export NVM_DIR="/Users/shangchun/.nvm"
+export INFRA_REPO_PATH="/Users/shangchun/Repo/adrise_infra"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# added by travis gem
+[ -f /Users/shangchun/.travis/travis.sh ] && source /Users/shangchun/.travis/travis.sh
+
+export ANDROID_HOME=/Users/shangchun/Library/Android/sdk
+export GRADLE_HOME=/Applications/Android\ Studio.app/Contents/gradle/gradle-4.6
+export PATH=${PATH}:${ANDROID_HOME}/tools
+export PATH=${PATH}:${ANDROID_HOME}/platform-tools
+export PATH=${PATH}:${GRADLE_HOME}/bin
+export PATH="${PATH}:/Users/shangchun/Repo/depot_tools"
+export PATH="$HOME/miniconda/bin:$PATH"

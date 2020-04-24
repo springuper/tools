@@ -11,28 +11,66 @@ Plugin 'VundleVim/Vundle.vim'
 " Style
 Plugin 'zoubin/vim-tabstop'
 Plugin 'godlygeek/tabular'
+Plugin 'itchyny/lightline.vim'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'kshenoy/vim-signature'
+Plugin 'ntpeters/vim-better-whitespace'
 
 " Language
 Plugin 'moll/vim-node'
 Plugin 'pangloss/vim-javascript'
 Plugin 'fatih/vim-go'
+Plugin 'mxw/vim-jsx'
+Plugin 'nono/vim-handlebars'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'keith/swift.vim'
+Plugin 'hashivim/vim-terraform'
+Plugin 'derekwyatt/vim-scala'
+Plugin 'udalov/kotlin-vim'
+Plugin 'reasonml-editor/vim-reason-plus'
 
 " Autocomplete
 " Plugin 'valloric/youcompleteme'
 Plugin 'taglist.vim'
+Plugin 'w0rp/ale'
 
 " Syntax
 Plugin 'scrooloose/syntastic'
+Plugin 'majutsushi/tagbar'
+Plugin 'vim-scripts/DrawIt'
+Plugin 'tpope/vim-fugitive'
+
+" Layout
+Plugin 'scrooloose/nerdtree'
+
+" Others
+Plugin 'vimwiki/vimwiki'
+Plugin 'tpope/vim-obsession'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-
 " Enables syntax highlighting for JSDocs
 let g:javascript_plugin_jsdoc = 1
 " Enables syntax highlighting for Flow
 let g:javascript_plugin_flow = 1
+
+" Enable jsx for normal .js extension
+let g:jsx_ext_required = 0
+
+" ALE
+let g:ale_completion_enabled = 1
+let g:ale_linters = {
+  \   'javascript': ['eslint', 'standard', 'tsserver', 'xo'],
+  \   'typescript': ['tslint', 'tsserver', 'typecheck', 'xo'],
+  \}
+let g:ale_javascript_eslint_options = '--no-ignore'
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 0
+let g:ale_fix_on_save = 1
+nmap <C-G> :ALEGoToDefinitionInTab<CR>
 
 " Syntastic settings
 set statusline+=%#warningmsg#
@@ -44,9 +82,75 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 let g:syntastic_javascript_checkers = ['eslint']
 
-" Taglist
-let Tlist_Ctags_Cmd='/User/local/bin/ctags'
+" VimWiki
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 
+" Taglist
+" let Tlist_Auto_Open=1
+let Tlist_Ctags_Cmd='/usr/local/Cellar/universal-ctags/HEAD-3fdf28b/bin/ctags'
+
+" Tagbar
+nmap <C-T> :TagbarToggle<CR>
+let g:tagbar_sort = 0
+" let g:tagbar_left = 1
+let g:tagbar_type_typescript = {
+  \ 'ctagstype': 'typescript',
+  \ 'kinds': [
+    \ 'c:classes',
+    \ 'n:modules',
+    \ 'f:functions',
+    \ 'v:variables',
+    \ 'v:varlambdas',
+    \ 'm:members',
+    \ 'i:interfaces',
+    \ 'e:enumerators',
+    \ 'g:enums',
+    \ 't:types',
+    \ 'I:imports',
+    \ 'p:properties',
+    \ 'C:constants',
+    \ 'a:aliases',
+    \ 'z:parameters',
+  \ ]
+\ }
+
+" NERDTree config
+nnoremap <C-Y> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Indent Guide
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=1
+:nmap <silent> <Leader>i <Plug>IndentGuidesToggle
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=23
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=0
+
+" Mark Signature
+let g:SignatureMap = {
+  \ 'Leader'             :  "m",
+  \ 'PlaceNextMark'      :  "m,",
+  \ 'ToggleMarkAtLine'   :  "m.",
+  \ 'PurgeMarksAtLine'   :  "m-",
+  \ 'DeleteMark'         :  "dm",
+  \ 'PurgeMarks'         :  "mda",
+  \ 'PurgeMarkers'       :  "m<BS>",
+  \ 'GotoNextLineAlpha'  :  "']",
+  \ 'GotoPrevLineAlpha'  :  "'[",
+  \ 'GotoNextSpotAlpha'  :  "`]",
+  \ 'GotoPrevSpotAlpha'  :  "`[",
+  \ 'GotoNextLineByPos'  :  "]'",
+  \ 'GotoPrevLineByPos'  :  "['",
+  \ 'GotoNextSpotByPos'  :  "mn",
+  \ 'GotoPrevSpotByPos'  :  "mp",
+  \ 'GotoNextMarker'     :  "[+",
+  \ 'GotoPrevMarker'     :  "[-",
+  \ 'GotoNextMarkerAny'  :  "]=",
+  \ 'GotoPrevMarkerAny'  :  "[=",
+  \ 'ListLocalMarks'     :  "ms",
+  \ 'ListLocalMarkers'   :  "m?"
+  \ }
 
 "==========================================
 " General 基础设置
@@ -109,7 +213,7 @@ set tm=500
 
 "显示行号：
 set number
-set nowrap                    " 取消换行。
+"set nowrap                    " 取消换行。
 
 "括号配对情况
 set showmatch
@@ -143,9 +247,9 @@ set smartindent
 set autoindent    " always set autoindenting on
 " never add copyindent, case error   " copy the previous indentation on autoindenting
 
-set tabstop=4                " 设置Tab键的宽度        [等同的空格个数]
-set shiftwidth=4  " number of spaces to use for autoindenting
-set softtabstop=4             " 按退格键时可以一次删掉 4 个空格
+set tabstop=2                " 设置Tab键的宽度        [等同的空格个数]
+set shiftwidth=2  " number of spaces to use for autoindenting
+set softtabstop=2             " 按退格键时可以一次删掉 4 个空格
 set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop 按退格键时可以一次删掉 4 个空格
 
 set expandtab                " 将Tab自动转化成空格    [需要输入真正的Tab键时，使用 Ctrl+V + Tab]
@@ -179,7 +283,7 @@ set ttyfast
 set undolevels=1000         " How many undos
 set undoreload=10000        " number of lines to save for undo
 if v:version >= 730
-    set undofile                " keep a persistent backup file
+" set undofile                " keep a persistent backup file
     set undodir=~/bak/vimundo/
 endif
 
@@ -279,10 +383,14 @@ set magic
 set backspace=eol,start,indent
 " set whichwrap+=<,>,h,l
 
+set noshowmode
+
 "==========================================
 "hot key  自定义快捷键
 "==========================================
 let mapleader = ','
+
+
 let g:mapleader = ','
 
 " Quickly edit/reload the vimrc file
@@ -424,8 +532,11 @@ map <leader>tm :tabmove
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 syntax on
-set background=dark
+" set background=dark
 " let g:solarized_contrast='low'
+let g:lightline = {
+  \ 'colorscheme': 'solarized',
+  \ }
 colorscheme solarized
 
 let javascript_enable_domhtmlcss=1
